@@ -20,6 +20,8 @@ En settings -> buildpacks de heroku agregar:
 - CHROMEDRIVER_PATH: /app/.chromedriver/bin/chromedriver
 - GOOGLE_CHROME_BIN: /app/.apt/usr/bin/google-chrome
 
+* Campus 3 corresponde a SJ
 ## Scheduler
 Agregar el add-on **Advanced Scheduler**: https://elements.heroku.com/addons/advanced-scheduler 
+
 Setear la task con corn syntax.
