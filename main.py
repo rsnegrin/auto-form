@@ -43,7 +43,7 @@ try:
 
     browser.find_element_by_class_name("uc-btn.btn-primary.btn-inline").click()
     print("Succses: True")
-    # Alert(browser).accept()
+    Alert(browser).accept()
 
 except Exception as error:
     print(f"Error: {error}")
