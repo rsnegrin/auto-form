@@ -1,35 +1,8 @@
-from lib2to3.pgen2 import driver
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.alert import Alert
-import pandas as pd
-
-
-df = pd.read_csv("data.csv", encoding="utf-8")
-
-input_names_login = ["username", "password"]
-
-input_names_form = [
-    "campus",
-    "lugar",
-    "pre_1",
-    "pre_2",
-    "temperatura2",
-    "anosmia",
-    "ageusia",
-    "tos_estornudos",
-    "calofrios",
-    "cefalea",
-    "odinofagia",
-    "mialgias",
-    "diarrea",
-    "dolortorax",
-    "disnea",
-    "congestion",
-    "taquipnea",
-    "fatiga",
-    "nauseas_vomito",
-]
+from settings import INPUT_NAMES_LOGIN, INPUT_NAMES_FORM
+import os
 
 browser = webdriver.Chrome(
     executable_path="./drivers/chromedriver_linux64/chromedriver"
@@ -37,21 +10,21 @@ browser = webdriver.Chrome(
 
 browser.get("https://formulariocovid19.uc.cl/accesouc/")
 
-for input_name in input_names_login:
+for input_name in INPUT_NAMES_LOGIN:
     name_input = browser.find_elements_by_name(input_name)[0]
-    name_input.send_keys(df[input_name])
+    name_input.send_keys(os.getenv(input_name, "None"))
 
 browser.find_elements_by_name("submit")[0].click()
 
-for input_name in input_names_form:
+for input_name in INPUT_NAMES_FORM:
     if input_name == "campus":
         elem = browser.find_elements_by_name(input_name)
         select = Select(elem[1])
-        select.select_by_index(int(df[input_name]))
+        select.select_by_index(int(os.getenv("campus", 3)))
 
     elif input_name == "lugar":
         name_input = browser.find_elements_by_name(input_name)[1]
-        name_input.send_keys(df[input_name])
+        name_input.send_keys(os.getenv("lugar", "Ingeniería"))
 
     elif input_name in ["pre_1", "pre_2"]:
 
